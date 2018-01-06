@@ -33,6 +33,7 @@ public class PassFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private InfoAdapter mAdapter;
     private SuspensionFab fabMenu;
+    private IntfPassFragment mCallBack;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,6 +106,24 @@ public class PassFragment extends Fragment {
         fabMenu.addFab(menu_add,menu_locked,menu_setting);
     }
 
+    public static PassFragment newInstance() {
+        PassFragment mPassFragment = new PassFragment();
+        //添加参数？
+        //Bundle args = new Bundle();
+        //args.putBoolean("comeFromAccoutActivity", comeFromAccoutActivity);
+        //mPassFragment.setArguments(args);
+        return mPassFragment;
+    }
+
+    public void setCallBack(IntfPassFragment callback) {
+        mCallBack = callback;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mCallBack.onFinish();
+    }
 
     public class InfoViewHolder extends RecyclerView.ViewHolder {
 
@@ -145,7 +164,7 @@ public class PassFragment extends Fragment {
             //设置数据
             holder.mTvUserInfo.setText(mData.get(position).getUserPurpose());
             if(position % 2 == 0)
-                holder.mItemBackground.setBackgroundColor(Color.rgb(0xaa,0xaa,0xaa));
+                holder.mItemBackground.setBackgroundColor(Color.rgb(0xbb,0xbb,0xbb));
             else
                 holder.mItemBackground.setBackgroundColor(Color.rgb(0xee,0xee,0xee));
         }

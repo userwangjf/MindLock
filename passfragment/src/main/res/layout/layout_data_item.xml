@@ -13,6 +13,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:textSize="20dp"
+        android:textColor="#111111"
         android:id="@+id/id_user_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

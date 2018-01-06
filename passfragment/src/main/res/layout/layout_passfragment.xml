@@ -23,7 +23,7 @@
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
         a_zhon:fab_orientation="top"
-        a_zhon:fab_spacing="10dp" />
+        a_zhon:fab_spacing="0dp" />
 
 
 </RelativeLayout>

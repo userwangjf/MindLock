@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#eeeeee"
     android:orientation="vertical">
 
+    <TextView
+        android:text="验证密码"
+        android:textColor="#999999"
+        android:textSize="30dp"
+        android:paddingTop="50dp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/id_lock_mess"
+        android:text="测试"
+        android:paddingTop="180dp"
+        android:textSize="20dp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
     <com.github.ihsg.patternlocker.PatternLockerView
         android:id="@+id/id_pass_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="50dp"
+        android:layout_marginBottom="80dp"
         android:layout_marginRight="50dp"/>
 
-</LinearLayout>
+</RelativeLayout>
