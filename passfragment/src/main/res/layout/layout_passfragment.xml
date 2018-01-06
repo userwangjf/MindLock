@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:a_zhon="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                tools:context="">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/id_recycler_view"
+        android:background="#f2f2f2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+    <com.azhon.suspensionfab.SuspensionFab
+        android:id="@+id/fab_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        a_zhon:fab_orientation="top"
+        a_zhon:fab_spacing="10dp" />
+
+
+</RelativeLayout>

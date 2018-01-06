@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MindLock.iml" filepath="$PROJECT_DIR$/MindLock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lockfragment/lockfragment.iml" filepath="$PROJECT_DIR$/lockfragment/lockfragment.iml" />
+      <module fileurl="file://$PROJECT_DIR$/passfragment/passfragment.iml" filepath="$PROJECT_DIR$/passfragment/passfragment.iml" />
+      <module fileurl="file://$PROJECT_DIR$/passtextedit/passtextedit.iml" filepath="$PROJECT_DIR$/passtextedit/passtextedit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/patternlocker/patternlocker.iml" filepath="$PROJECT_DIR$/patternlocker/patternlocker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/suspension-fab/suspension-fab.iml" filepath="$PROJECT_DIR$/suspension-fab/suspension-fab.iml" />
+    </modules>
+  </component>
+</project>

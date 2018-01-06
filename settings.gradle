@@ -1,0 +1,4 @@
+include ':app', ':passtextedit', ':lockfragment', ':passfragment'
+include ':patternlocker'
+include ':suspension-fab'
+
