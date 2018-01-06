@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.azhon.suspensionfab.FabAttributes;
+import com.azhon.suspensionfab.OnFabClickListener;
 import com.azhon.suspensionfab.SuspensionFab;
 import com.wangjf.passfragment.R;
 import com.wangjf.passfragment.bean.Bean;
@@ -27,7 +28,7 @@ import java.util.List;
  * Created by wangjf on 18-1-6.
  */
 
-public class PassFragment extends Fragment {
+public class PassFragment extends Fragment implements OnFabClickListener {
 
     private List<Bean.UserBean> mData;
     private RecyclerView mRecyclerView;
@@ -45,12 +46,18 @@ public class PassFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.layout_passfragment, container, false);
 
+        initRvList(v);
+        initMenu(v);
+
+        return v;
+    }
+
+    public void initRvList(View v) {
         //微博列表
         mRecyclerView = (RecyclerView) v.findViewById(R.id.id_recycler_view);
         mAdapter = new InfoAdapter(getActivity());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter);
-
 
         mData = new ArrayList<>();
         for(int i=0;i<50;i++) {
@@ -64,15 +71,6 @@ public class PassFragment extends Fragment {
         }
 
         mAdapter.setData(mData);
-
-
-        initMenu(v);
-
-        return v;
-    }
-
-    public void initRvList(View v) {
-
     }
 
     public void initMenu(View v){
@@ -104,6 +102,19 @@ public class PassFragment extends Fragment {
                 .build();
 
         fabMenu.addFab(menu_add,menu_locked,menu_setting);
+
+        fabMenu.setFabClickListener(this);
+    }
+
+    @Override
+    public void onFabClick(FloatingActionButton fab, Object tag) {
+        if(tag.equals(1)) {
+
+        } else if(tag.equals(2)) {
+            mCallBack.onFinish(false);
+        } else if(tag.equals(3)) {
+
+        }
     }
 
     public static PassFragment newInstance() {
@@ -122,7 +133,7 @@ public class PassFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        mCallBack.onFinish();
+        mCallBack.onFinish(true);
     }
 
     public class InfoViewHolder extends RecyclerView.ViewHolder {

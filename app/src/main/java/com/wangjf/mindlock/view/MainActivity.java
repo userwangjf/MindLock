@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -37,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
         mFragmentManger = getSupportFragmentManager();
 
-        showLockFragment();
+        showLockFragment(true);
         //showPassFragment();
 
     }
 
-    public void showLockFragment() {
+    public void showLockFragment(boolean checkMode) {
         mFragmentTrans = mFragmentManger.beginTransaction();
         hideAllFragments();
         if (mLockFragment == null) {
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             mFragmentTrans.show(mLockFragment);
         }
+        Log.i("WJF","onFinish: " + checkMode);
+        mLockFragment.setCheckMode(checkMode);
         mFragmentTrans.commit();
     }
 
@@ -67,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
             mPassFragment = PassFragment.newInstance();
             mPassFragment.setCallBack(new IntfPassFragment() {
                 @Override
-                public void onFinish() {
-                    showLockFragment();
+                public void onFinish(boolean checkMode) {
+                    showLockFragment(checkMode);
                 }
             });
             mFragmentTrans.add(R.id.fragment_container, mPassFragment, "LockFragment");
