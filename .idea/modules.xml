@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MindLock.iml" filepath="$PROJECT_DIR$/MindLock.iml" />
+      <module fileurl="file://$PROJECT_DIR$/adduser/adduser.iml" filepath="$PROJECT_DIR$/adduser/adduser.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/lockfragment/lockfragment.iml" filepath="$PROJECT_DIR$/lockfragment/lockfragment.iml" />
       <module fileurl="file://$PROJECT_DIR$/myutils/myutils.iml" filepath="$PROJECT_DIR$/myutils/myutils.iml" />

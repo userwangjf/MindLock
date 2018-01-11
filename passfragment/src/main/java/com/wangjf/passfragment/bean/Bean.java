@@ -8,16 +8,57 @@ import java.util.List;
 
 public class Bean {
 
-    private String app_version;         //版本
-    private String save_date;           //保存日期
-    private List<UserBean> user_count; //数据
+    private String mAppVersion;         //版本
+    private String mSaveDate;           //保存日期
+    private String mSign;               //签名
+    private List<UserBean> mUserCount;  //数据
 
+    public String getAppVersion() {
+        return mAppVersion;
+    }
+
+    public void setAppVersion(String appVersion) {
+        mAppVersion = appVersion;
+    }
+
+    public String getSaveDate() {
+        return mSaveDate;
+    }
+
+    public void setSaveDate(String saveDate) {
+        mSaveDate = saveDate;
+    }
+
+    public String getSign() {
+        return mSign;
+    }
+
+    public void setSign(String sign) {
+        mSign = sign;
+    }
+
+    public List<UserBean> getUserCount() {
+        return mUserCount;
+    }
+
+    public void setUserCount(List<UserBean> userCount) {
+        mUserCount = userCount;
+    }
 
     public  static class UserBean {
+        private String mCreateTime;     //创建时间
         private String mUserPurpose;    //用途
         private String mUserName;       //帐号
         private String mUserPass;       //密码
         private String mUserMore;       //更多信息
+
+        public String getCreateTime() {
+            return mCreateTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            mCreateTime = createTime;
+        }
 
         public String getUserPurpose() {
             return mUserPurpose;

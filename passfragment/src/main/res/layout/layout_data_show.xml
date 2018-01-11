@@ -1,59 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="#cccccc"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
 
-    <com.wangjf.passtextedit.EditTextWithClear
-        android:id="@+id/is_user_purpose"
-        android:drawableStart="@drawable/passtextedit_at"
-        android:textColorHint="#B3B3B3"
-        android:drawablePadding="10dp"
-        android:paddingStart="10dp"
-        android:hint="用途"
-        android:inputType="text"
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:id="@+id/id_show_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <com.wangjf.passtextedit.EditTextWithClear
-        android:id="@+id/is_user_type"
-        android:drawableStart="@drawable/passtextedit_register_account"
-        android:textColorHint="#B3B3B3"
-        android:drawablePadding="10dp"
-        android:paddingStart="10dp"
-        android:hint="账号"
-        android:inputType="text"
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:textSize="22dp"
+            android:textColor="#ff0000"
+            android:id="@+id/id_show_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <com.wangjf.passtextedit.PasswordEditText
-        android:id="@+id/id_user_pass"
-        app:start="@drawable/passtextedit_register_password"
-        app:pad="10dp"
-        android:drawablePadding="10dp"
-        android:paddingStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_width="match_parent"
-        android:textColorHint="#B3B3B3"
-        android:hint="密码"
-        android:inputType="textPassword"
-        android:paddingEnd="10dp"
-        android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/id_edit_select"
+            android:paddingRight="5dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/show_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-    <com.wangjf.passtextedit.EditTextWithClear
-        android:id="@+id/is_user_more"
-        android:drawableStart="@drawable/passtextedit_more_info"
-        android:textColorHint="#B3B3B3"
-        android:drawablePadding="10dp"
-        android:paddingStart="10dp"
-        android:hint="更多"
-        android:inputType="textMultiLine"
-        android:layout_marginTop="5dp"
+    </RelativeLayout>
+
+    <LinearLayout
+        android:paddingLeft="30dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <com.wangjf.passtextedit.EditTextWithClear
+            android:id="@+id/id_user_purpose"
+            android:drawableStart="@drawable/passtextedit_at"
+            android:textColorHint="#B3B3B3"
+            android:drawablePadding="10dp"
+            android:paddingStart="10dp"
+            android:hint="用途"
+            android:inputType="text"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.wangjf.passtextedit.EditTextWithClear
+            android:id="@+id/id_user_name"
+            android:drawableStart="@drawable/passtextedit_register_account"
+            android:textColorHint="#B3B3B3"
+            android:drawablePadding="10dp"
+            android:paddingStart="10dp"
+            android:hint="账号"
+            android:inputType="text"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.wangjf.passtextedit.PasswordEditText
+            android:id="@+id/id_user_pass"
+            app:start="@drawable/passtextedit_register_password"
+            app:pad="10dp"
+            android:drawablePadding="10dp"
+            android:paddingStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:textColorHint="#B3B3B3"
+            android:textColor="#aaaaaa"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:paddingEnd="10dp"
+            android:layout_height="wrap_content" />
+
+        <com.wangjf.passtextedit.EditTextWithClear
+            android:id="@+id/id_user_more"
+            android:drawableStart="@drawable/passtextedit_more_info"
+            android:textColorHint="#B3B3B3"
+            android:drawablePadding="10dp"
+            android:paddingStart="10dp"
+            android:hint="更多"
+            android:inputType="textMultiLine"
+            android:minLines="2"
+            android:maxLines="5"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>

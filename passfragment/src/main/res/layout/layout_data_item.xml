@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:id="@+id/id_bg_data_item"
+              android:id="@+id/id_item_bg"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
 
     <TextView
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:paddingBottom="6dp"
-        android:paddingTop="6dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:textSize="20dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:textSize="22dp"
         android:textColor="#111111"
-        android:id="@+id/id_user_info"
+        android:id="@+id/id_item_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</LinearLayout>
+    <ImageView
+        android:paddingRight="5dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/item_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
