@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import com.wangjf.lockfragment.view.IntfLockFragment;
 import com.wangjf.lockfragment.view.LockFragment;
 import com.wangjf.mindlock.R;
+import com.wangjf.myutils.MyLogUtils;
 import com.wangjf.passfragment.view.IntfPassFragment;
 import com.wangjf.passfragment.view.PassFragment;
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager mFragmentManger;
     private LockFragment mLockFragment;
     private PassFragment mPassFragment;
+    private String mPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,27 +40,33 @@ public class MainActivity extends AppCompatActivity {
 
         mFragmentManger = getSupportFragmentManager();
 
-        showLockFragment(true);
+        showLockFragment(0);
         //showPassFragment();
 
     }
 
-    public void showLockFragment(boolean checkMode) {
+    public void setPass(String pass) {
+        mPass = pass;
+    }
+
+    public void showLockFragment(int checkMode) {
         mFragmentTrans = mFragmentManger.beginTransaction();
         hideAllFragments();
         if (mLockFragment == null) {
             mLockFragment = LockFragment.newInstance();
             mLockFragment.setCallBack(new IntfLockFragment() {
                 @Override
-                public void onFinish() {
+                public void onFinish(String mPass) {
+                    setPass(mPass);
                     showPassFragment();
                 }
             });
             mFragmentTrans.add(R.id.fragment_container, mLockFragment, "LockFragment");
         } else {
             mFragmentTrans.show(mLockFragment);
+            setPass("");
         }
-        Log.i("WJF","onFinish: " + checkMode);
+        MyLogUtils.i("PassFragment onFinish: " + checkMode);
         mLockFragment.setCheckMode(checkMode);
         mFragmentTrans.commit();
     }
@@ -70,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             mPassFragment = PassFragment.newInstance();
             mPassFragment.setCallBack(new IntfPassFragment() {
                 @Override
-                public void onFinish(boolean checkMode) {
+                public void onFinish(int checkMode) {
                     showLockFragment(checkMode);
                 }
             });
@@ -78,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             mFragmentTrans.show(mPassFragment);
         }
+        mPassFragment.setPass(mPass);
+        setPass("");
         mFragmentTrans.commit();
     }
 

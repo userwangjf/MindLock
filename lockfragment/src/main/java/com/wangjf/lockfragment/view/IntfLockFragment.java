@@ -5,5 +5,5 @@ package com.wangjf.lockfragment.view;
  */
 
 public interface IntfLockFragment {
-    public void onFinish();
+    public void onFinish(String pass);
 }

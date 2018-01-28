@@ -17,7 +17,9 @@ import com.github.ihsg.patternlocker.OnPatternChangeListener;
 import com.github.ihsg.patternlocker.PatternLockerView;
 import com.wangjf.lockfragment.R;
 import com.wangjf.myutils.EncryptUtils;
+import com.wangjf.myutils.MyLogUtils;
 import com.wangjf.myutils.ShareDataUtils;
+import com.wangjf.myutils.TimerUtils;
 
 import org.w3c.dom.Text;
 
@@ -31,17 +33,25 @@ import java.util.TimerTask;
 
 public class LockFragment extends Fragment {
 
+    final static int MODE_VERIFY = 0;
+    final static int MODE_CHECK = 1;
+    final static int MODE_STEP_A = 2;
+    final static int MODE_STEP_B = 3;
+
     private PatternLockerView mLockerView;
     private Context mContext;
     private IntfLockFragment mCallBack;
     private TextView mLockMess;
-    private boolean mCheckMode = true;
+    private int mCheckMode = MODE_VERIFY;
     private String mPassA;
     private String mPassB;
+    private int mWaitTimer = 1;
+    private int mWaitCnt = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
@@ -50,65 +60,124 @@ public class LockFragment extends Fragment {
         View v = inflater.inflate(R.layout.layout_lockfragment, container, false);
 
         mLockMess = (TextView)v.findViewById(R.id.id_lock_mess);
-        mLockMess.setText("请验证密码");
-
-        String main_key = (String) ShareDataUtils.getParam(getActivity(),"MAIN_KEY","NULL");
-        Toast.makeText(getActivity(),main_key,Toast.LENGTH_SHORT).show();
+        setCheckMode(mCheckMode);
 
         mLockerView = (PatternLockerView) v.findViewById(R.id.id_pass_view);
         mLockerView.setOnPatternChangedListener(new OnPatternChangeListener() {
             @Override
             public void onStart(PatternLockerView view) {
-                mLockMess.setText("开始测试");
+
             }
 
             @Override
             public void onChange(PatternLockerView view, List<Integer> hitList) {
-                //mLockMess.setText("输出变化 " + EncryptUtils.encryptMD5ToString(hitList.toString()));
 
             }
 
             @Override
             public void onComplete(PatternLockerView view, List<Integer> hitList) {
 
-                if(mCheckMode)
-                    mCallBack.onFinish();
-                else
-                {
-                    if(mPassA == null) {
-                        mLockMess.setText("请再次输入密码");
-                        mPassA = hitList.toString();
-                    } else if(mPassB == null) {
-                        mPassB = hitList.toString();
-                        if(!mPassA.equals(mPassB)) {
-                            mLockMess.setText("2次输入的密码不匹配，请重试!");
-                            mPassA = null;
-                            mPassB = null;
-                        } else {
-                            mLockMess.setText("密码输入成功:" + mPassA + "=" + mPassB);
-                            ShareDataUtils.setParam(getActivity(),"MAIN_KEY",mPassA);
-                            Toast.makeText(getActivity(),"密码修改成功",Toast.LENGTH_SHORT).show();
-                            mPassA = null;
-                            mPassB = null;
-                            mCallBack.onFinish();
-                        }
+                String mPass = hitList.toString();
 
-                    }
-                }
+                doPassCheck(mPass);
+
             }
 
             @Override
             public void onClear(PatternLockerView view) {
-
+                if(mWaitCnt > 0) {
+                    view.setEnabled(false);
+                }
             }
         });
+
+        //锁定定时器
+        TimerUtils mTimer = new TimerUtils() {
+            @Override
+            protected void onTime() {
+                if(mWaitCnt == 1) {
+                    mWaitCnt--;
+                    mLockMess.setText("请重新输入密码!");
+                    mLockerView.setEnabled(true);
+                } else if(mWaitCnt > 0) {
+                    mWaitCnt--;
+                    mLockMess.setText("输入错误，请等待"+mWaitCnt+"秒");
+                }
+            }
+        };
+        mTimer.start(1000);
 
         return v;
     }
 
-    public void setCheckMode(boolean mode)
+    public void doPassCheck(String mPass) {
+        if(MODE_VERIFY == mCheckMode) {
+            //读出原密码
+            String old_pass = (String) ShareDataUtils.getParam(getActivity(), "MAIN_KEY", "NULL");
+            //Toast.makeText(getActivity(),old_pass,Toast.LENGTH_SHORT).show();
+            if (!old_pass.equals("NULL")) {
+                String mPassMd5 = EncryptUtils.encryptMD5ToString(mPass);
+                //校验密码
+                if (mPassMd5.equals(old_pass)) {
+                    Toast.makeText(getActivity(),"密码验证成功",Toast.LENGTH_SHORT).show();
+                    mWaitTimer = 1;
+                    mCallBack.onFinish(mPass);
+                } else {
+                    mWaitTimer *= 2;
+                    mWaitCnt = mWaitTimer;
+                    Toast.makeText(getActivity(),"密码验证失败，请重试！",Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getActivity(),"当前密码为空，清设置密码",Toast.LENGTH_SHORT).show();
+                mCallBack.onFinish("");
+            }
+        } else if(MODE_CHECK == mCheckMode) {
+            //读出原密码
+            String old_pass = (String) ShareDataUtils.getParam(getActivity(), "MAIN_KEY", "NULL");
+            Toast.makeText(getActivity(),old_pass,Toast.LENGTH_SHORT).show();
+            if (!old_pass.equals("NULL")) {
+                String mPassMd5 = EncryptUtils.encryptMD5ToString(mPass);
+                //校验密码
+                if (mPassMd5.equals(old_pass)) {
+                    setCheckMode(MODE_STEP_A);
+                } else {
+                    mWaitTimer *= 2;
+                    mWaitCnt = mWaitTimer;
+                }
+            } else {
+                setCheckMode(MODE_STEP_A);
+            }
+        } else if(MODE_STEP_A == mCheckMode) {
+            mPassA = mPass;
+            setCheckMode(MODE_STEP_B);
+        } else if(MODE_STEP_B == mCheckMode) {
+            mPassB = mPass;
+            if(mPassB.equals(mPassA)) {
+                //密码修改成功，保存新密码，重新验证登录
+                String mPassMd5 = EncryptUtils.encryptMD5ToString(mPassA);
+                ShareDataUtils.setParam(getActivity(),"MAIN_KEY",mPassMd5);
+                setCheckMode(MODE_VERIFY);
+                Toast.makeText(getActivity(),"密码修改成功，请验证新密码",Toast.LENGTH_SHORT).show();
+            } else {
+                setCheckMode(MODE_CHECK);
+            }
+        }
+    }
+
+    public void setCheckMode(int mode)
     {
         this.mCheckMode = mode;
+        if(mLockMess != null) {
+            if (MODE_VERIFY == mCheckMode) {
+                mLockMess.setText("请验证密码！");
+            } else if (MODE_CHECK == mCheckMode) {
+                mLockMess.setText("请验证旧密码！");
+            } else if (MODE_STEP_A == mCheckMode) {
+                mLockMess.setText("请输入新密码！");
+            } else if (MODE_STEP_B == mCheckMode) {
+                mLockMess.setText("请重新输入新密码！");
+            }
+        }
     }
 
     public void setCallBack(IntfLockFragment callback) {
@@ -133,11 +202,8 @@ public class LockFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if(mCheckMode) {
-            mLockMess.setText("请验证密码");
-        } else {
-            mLockMess.setText("请输入新密码");
-        }
-        Log.i("WJF","LockFragment: onHiddenChanged " + mCheckMode);
+        setCheckMode(mCheckMode);
+
+        MyLogUtils.i("LockFragment: onHiddenChanged " + mCheckMode);
     }
 }

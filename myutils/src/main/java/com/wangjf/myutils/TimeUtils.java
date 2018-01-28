@@ -19,6 +19,11 @@ import java.util.Locale;
  */
 public final class TimeUtils {
 
+
+    public static long getSysTick() {
+        return System.currentTimeMillis();
+    }
+
     /**
      * <p>在工具类中经常使用到工具类的格式化描述，这个主要是一个日期的操作类，
      * 所以日志格式主要使用 SimpleDateFormat 的定义格式.</p>

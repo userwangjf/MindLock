@@ -5,5 +5,5 @@ package com.wangjf.passfragment.view;
  */
 
 public interface IntfPassFragment {
-    public void onFinish(boolean checkMode);
+    public void onFinish(int checkMode);
 }

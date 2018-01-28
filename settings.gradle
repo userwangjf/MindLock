@@ -1,5 +1,6 @@
-include ':app', ':passtextedit', ':lockfragment', ':passfragment', ':adduser'
+include ':app', ':passtextedit', ':lockfragment', ':passfragment', ':setting', ':promptdialog'
 include ':patternlocker'
 include ':suspension-fab'
 include ':myutils'
+include ':gson'
 

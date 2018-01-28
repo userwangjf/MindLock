@@ -34,5 +34,7 @@ dependencies {
     compile project(':passtextedit')
     compile project(':suspension-fab')
     compile project(':myutils')
-    compile project(':adduser')
+    compile project(':setting')
+    compile project(':gson')
+    compile project(':promptdialog')
 }

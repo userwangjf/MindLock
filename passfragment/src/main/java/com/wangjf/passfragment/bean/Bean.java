@@ -11,7 +11,7 @@ public class Bean {
     private String mAppVersion;         //版本
     private String mSaveDate;           //保存日期
     private String mSign;               //签名
-    private List<UserBean> mUserCount;  //数据
+    private List<UserBean> mUserInfo;  //数据
 
     public String getAppVersion() {
         return mAppVersion;
@@ -37,12 +37,12 @@ public class Bean {
         mSign = sign;
     }
 
-    public List<UserBean> getUserCount() {
-        return mUserCount;
+    public List<UserBean> getUserInfo() {
+        return mUserInfo;
     }
 
-    public void setUserCount(List<UserBean> userCount) {
-        mUserCount = userCount;
+    public void setUserInfo(List<UserBean> userCount) {
+        mUserInfo = userCount;
     }
 
     public  static class UserBean {

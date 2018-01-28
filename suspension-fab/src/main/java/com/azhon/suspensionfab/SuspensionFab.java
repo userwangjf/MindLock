@@ -44,7 +44,7 @@ public class SuspensionFab extends RelativeLayout implements View.OnClickListene
     /**
      * 两个按钮间的间距
      */
-    private int fabSpacing;
+    private int fabSpacing = 0;
     /**
      * 按钮当前是否是展开还是关闭状态   true为展开
      */
@@ -87,7 +87,7 @@ public class SuspensionFab extends RelativeLayout implements View.OnClickListene
     @SuppressLint("CustomViewStyleable")
     private void loadAttrs(Context context, AttributeSet attrs) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.a_zhon);
-        fabSpacing = array.getDimensionPixelSize(R.styleable.a_zhon_fab_spacing, dip2px(10));
+        fabSpacing = array.getDimensionPixelSize(R.styleable.a_zhon_fab_spacing, dip2px(2));
         orientation = array.getInt(R.styleable.a_zhon_fab_orientation, ExpandOrientation.FAB_TOP.getValue());
         //TypedArray需要被回收
         array.recycle();
@@ -186,6 +186,7 @@ public class SuspensionFab extends RelativeLayout implements View.OnClickListene
             FloatingActionButton view = (FloatingActionButton) getChildAt(i - 1);
             //fab位移的距离
             displacement += view.getHeight() + fabSpacing;
+            Log.i("WJF","button high = " + view.getHeight());
             setVisible(view, true);
             if (animationManager != null)
                 animationManager.openAnimation(view, ExpandOrientation.getEnum(orientation));

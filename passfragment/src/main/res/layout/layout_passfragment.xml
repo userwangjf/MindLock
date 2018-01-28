@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-
     <com.azhon.suspensionfab.SuspensionFab
         android:id="@+id/fab_menu"
         android:layout_width="wrap_content"
@@ -22,6 +21,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
+        a_zhon:paddingStart="0dp"
+        a_zhon:paddingEnd="0dp"
         a_zhon:fab_orientation="top"
         a_zhon:fab_spacing="0dp" />
 
